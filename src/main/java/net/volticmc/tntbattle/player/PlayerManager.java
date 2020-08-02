@@ -24,7 +24,7 @@ public class PlayerManager {
     }
 
     public int getRemainingSlots(){
-        return players.size() - slots;
+        return slots - players.size();
     }
 
     public int getSlots() {
@@ -46,12 +46,12 @@ public class PlayerManager {
 
     public void addPlayer(TNTPlayer tntPlayer){
         players.add(tntPlayer);
-        Bukkit.broadcastMessage(tntPlayer.getName() + " has joined! (" + getRemainingSlots() + "/" + slots + ")");
+        Bukkit.broadcastMessage(tntPlayer.getName() + " has joined! (" + players.size() + "/" + slots + ")");
     }
 
     public void removePlayer(TNTPlayer tntPlayer){
         players.remove(tntPlayer);
-        Bukkit.broadcastMessage(tntPlayer.getName() + " has left! (" + getRemainingSlots() + "/" + slots + ")");
+        Bukkit.broadcastMessage(tntPlayer.getName() + " has left! (" + players.size() + "/" + slots + ")");
     }
 
 }
