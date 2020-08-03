@@ -3,6 +3,7 @@ main: net.volticmc.tntbattle.TNTBattle
 description: TNT Game plugin for Voltic
 author: VolticMC
 version: 1.0.0
+api-version: 1.16 
 commands:
   forcestart:
     description: forces game start
