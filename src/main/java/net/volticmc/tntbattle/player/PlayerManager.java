@@ -46,12 +46,12 @@ public class PlayerManager {
 
     public void addPlayer(TNTPlayer tntPlayer){
         players.add(tntPlayer);
-        Bukkit.broadcastMessage(tntPlayer.getName() + " has joined! (" + players.size() + "/" + slots + ")");
+        Bukkit.broadcastMessage(tntPlayer.getName() + " §ahas joined! §7(§f" + players.size() + "/" + slots + "§7)");
     }
 
     public void removePlayer(TNTPlayer tntPlayer){
         players.remove(tntPlayer);
-        Bukkit.broadcastMessage(tntPlayer.getName() + " has left! (" + players.size() + "/" + slots + ")");
+        Bukkit.broadcastMessage(tntPlayer.getName() + "§a has left! §7(§f" + players.size() + "/" + slots + "§7)");
     }
 
 }
