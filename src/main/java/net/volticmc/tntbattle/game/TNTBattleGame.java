@@ -3,7 +3,6 @@ package net.volticmc.tntbattle.game;
 import net.volticmc.tntbattle.TNTBattle;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
@@ -15,7 +14,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 
 public class TNTBattleGame implements Listener {
 
@@ -58,13 +56,14 @@ public class TNTBattleGame implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
-        //TODO Find a way to get player who placed TNT that blows up
+        Player killer = (Player) event.getEntity().getLastDamageCause().getEntity();
+        event.setDeathMessage(null);
+        Bukkit.broadcastMessage(event.getEntity().getName() + " was obliterated by " + killer.getName());
     }
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event){
         event.setCancelled(true);
-        event.getBlock().getBlockData();
         if(live) {
             if (event.getBlockPlaced().getType() == Material.TNT) {
                 TNTPrimed tntPrimed = (TNTPrimed) event.getPlayer().getWorld().spawnEntity(event.getBlockPlaced().getLocation(), EntityType.PRIMED_TNT);
