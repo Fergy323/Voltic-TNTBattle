@@ -18,6 +18,7 @@ public class TNTBattle extends JavaPlugin {
         gameManager.setWaiting(true);
 
         getCommand("forcestart").setExecutor(new ForceStartCommand(this));
+
     }
 
     @Override

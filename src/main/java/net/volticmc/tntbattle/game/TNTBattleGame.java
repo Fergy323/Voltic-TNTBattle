@@ -3,19 +3,19 @@ package net.volticmc.tntbattle.game;
 import net.volticmc.tntbattle.TNTBattle;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.type.TNT;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
 
 public class TNTBattleGame implements Listener {
 
@@ -49,26 +49,31 @@ public class TNTBattleGame implements Listener {
 
     @EventHandler
     public void onTNTDamage(EntityDamageByEntityEvent event){
-        if(event.getEntity() instanceof Player){
-            event.setCancelled(true);
+        if(event.getEntityType() == EntityType.PLAYER){
+            if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_EXPLOSION){
+                event.setCancelled(true);
+            }
         }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event){
+        //TODO Find a way to get player who placed TNT that blows up
     }
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event){
         event.setCancelled(true);
+        event.getBlock().getBlockData();
         if(live) {
             if (event.getBlockPlaced().getType() == Material.TNT) {
                 TNTPrimed tntPrimed = (TNTPrimed) event.getPlayer().getWorld().spawnEntity(event.getBlockPlaced().getLocation(), EntityType.PRIMED_TNT);
                 tntPrimed.setFuseTicks(10);
+                tntPrimed.setMetadata(event.getPlayer().getName(), new FixedMetadataValue(main, event.getPlayer().getName()));
             }
         }
     }
 
 
 
-    @EventHandler
-    public void onTNTDeath(PlayerDeathEvent e){
-
-    }
 }

@@ -54,4 +54,8 @@ public class PlayerManager {
         Bukkit.broadcastMessage(tntPlayer.getName() + "§a has left! §7(§f" + players.size() + "/" + slots + "§7)");
     }
 
+    public void savePlayer(TNTPlayer tntPlayer){
+        //TODO Add MongoDB class and logic for saving player data
+    }
+
 }

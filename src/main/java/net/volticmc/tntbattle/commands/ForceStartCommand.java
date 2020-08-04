@@ -24,12 +24,7 @@ public class ForceStartCommand implements CommandExecutor {
 
         game.start();
 
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
-            @Override
-            public void run() {
-                game.stop();
-            }
-        }, 1200);
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(main, game::stop, 1200);
 
         return true;
     }
