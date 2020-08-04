@@ -39,7 +39,7 @@ public class GameManager implements Listener {
                     @Override
                     public void run() {
                         secondsLeft--;
-                        Bukkit.broadcastMessage("Game starting in " + secondsLeft + " seconds!");
+                        Bukkit.broadcastMessage("§aGame starting in §f" + secondsLeft + " §aseconds!");
                         if (secondsLeft == 0) {
                             game = new TNTBattleGame(main);
                             game.start();
