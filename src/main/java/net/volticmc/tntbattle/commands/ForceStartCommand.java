@@ -18,8 +18,6 @@ public class ForceStartCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 
-        main.getGameManager().setWaiting(false);
-
         TNTBattleGame game = new TNTBattleGame(main);
 
         game.start();

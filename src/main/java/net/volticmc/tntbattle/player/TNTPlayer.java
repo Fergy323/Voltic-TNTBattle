@@ -1,11 +1,14 @@
 package net.volticmc.tntbattle.player;
 
 import net.volticmc.tntbattle.game.items.GameItem;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 public class TNTPlayer {
+
+    //TODO Potion effects on respawn
 
     private final String name;
     private final UUID uuid;
@@ -34,6 +37,9 @@ public class TNTPlayer {
         return deaths;
     }
 
+    public Player getPlayer(){
+        return Bukkit.getServer().getPlayerExact(name);
+    }
     public void setKills(int kills) {
         this.kills = kills;
     }
@@ -51,6 +57,7 @@ public class TNTPlayer {
     }
 
     public void give(GameItem gameItem){
+
     }
 
 }

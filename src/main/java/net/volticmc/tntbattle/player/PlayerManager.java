@@ -1,6 +1,7 @@
 package net.volticmc.tntbattle.player;
 
 import net.volticmc.tntbattle.TNTBattle;
+import net.volticmc.tntbattle.game.TNTState;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -44,14 +45,24 @@ public class PlayerManager {
          return null;
     }
 
-    public void addPlayer(TNTPlayer tntPlayer){
+    public void addPlayer(Player player){
+        TNTPlayer tntPlayer = new TNTPlayer(player);
         players.add(tntPlayer);
-        Bukkit.broadcastMessage(tntPlayer.getName() + " §ahas joined! §7(§f" + players.size() + "/" + slots + "§7)");
+        if(TNTState.getState() == TNTState.WAITING) {
+            Bukkit.broadcastMessage(tntPlayer.getName() + " §ahas joined! §7(§f" + players.size() + "/" + slots + "§7)");
+        }else{
+            Bukkit.broadcastMessage(tntPlayer.getName() + "§a has joined!");
+        }
     }
 
-    public void removePlayer(TNTPlayer tntPlayer){
+    public void removePlayer(Player player){
+        TNTPlayer tntPlayer = new TNTPlayer(player);
         players.remove(tntPlayer);
-        Bukkit.broadcastMessage(tntPlayer.getName() + "§a has left! §7(§f" + players.size() + "/" + slots + "§7)");
+        if(TNTState.getState() == TNTState.WAITING) {
+            Bukkit.broadcastMessage(tntPlayer.getName() + "§a has left! §7(§f" + players.size() + "/" + slots + "§7)");
+        }else{
+            Bukkit.broadcastMessage(tntPlayer.getName() + "§a has left!");
+        }
     }
 
     public void savePlayer(TNTPlayer tntPlayer){
