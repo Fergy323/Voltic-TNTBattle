@@ -1,7 +1,6 @@
 package net.volticmc.tntbattle.listeners;
 
 import net.volticmc.tntbattle.TNTBattle;
-import net.volticmc.tntbattle.game.TNTBattleGame;
 import net.volticmc.tntbattle.game.TNTState;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -18,6 +17,7 @@ public class TNTJoinListener extends TNTListener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         if(TNTState.getState() == TNTState.WAITING) {
+            event.getPlayer().teleport(getMain().getGame().getMap().getLobbySpawn());
             getMain().getPlayerManager().addPlayer(event.getPlayer());
             if (getMain().getPlayerManager().getPlayers().size() == getMain().getPlayerManager().getSlots()) {
                 BukkitRunnable startRunnable = new BukkitRunnable() {
@@ -32,12 +32,11 @@ public class TNTJoinListener extends TNTListener {
                         }
                         TNTState.setState(TNTState.STARTING);
                         secondsLeft--;
-                        Bukkit.broadcastMessage("§aGame starting in §f" + secondsLeft + " §aseconds!");
                         if (secondsLeft == 0) {
-                            TNTBattleGame game = new TNTBattleGame(getMain());
-                            game.start();
+                            getMain().getGame().start();
                             this.cancel();
                         }
+                        Bukkit.broadcastMessage("§aGame starting in §f" + secondsLeft + " §aseconds!");
                     }
                 };
                 startRunnable.runTaskTimer(getMain(), 0, 20L);

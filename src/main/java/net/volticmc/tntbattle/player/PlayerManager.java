@@ -56,8 +56,11 @@ public class PlayerManager {
     }
 
     public void removePlayer(Player player){
-        TNTPlayer tntPlayer = new TNTPlayer(player);
+        TNTPlayer tntPlayer = getPlayer(player);
         players.remove(tntPlayer);
+        for(TNTPlayer players : players){
+            Bukkit.getLogger().info(players.getName());
+        }
         if(TNTState.getState() == TNTState.WAITING) {
             Bukkit.broadcastMessage(tntPlayer.getName() + "§a has left! §7(§f" + players.size() + "/" + slots + "§7)");
         }else{

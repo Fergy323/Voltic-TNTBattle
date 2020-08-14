@@ -1,21 +1,29 @@
 package net.volticmc.tntbattle;
 
 import net.volticmc.tntbattle.commands.ForceStartCommand;
-import net.volticmc.tntbattle.game.GameManager;
+import net.volticmc.tntbattle.game.TNTBattleGame;
 import net.volticmc.tntbattle.game.TNTState;
+import net.volticmc.tntbattle.game.map.MapManager;
 import net.volticmc.tntbattle.listeners.*;
 import net.volticmc.tntbattle.player.PlayerManager;
+import net.volticmc.tntbattle.utils.FileManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TNTBattle extends JavaPlugin {
 
     private PlayerManager playerManager;
-    private GameManager gameManager;
+    private TNTBattleGame tntBattleGame;
+    private MapManager mapManager;
+    private FileManager fileManager;
 
     @Override
     public void onEnable() {
         playerManager = new PlayerManager(this);
-        gameManager = new GameManager(this);
+        tntBattleGame = new TNTBattleGame(this);
+        mapManager = new MapManager(this);
+        fileManager = new FileManager();
+
+        fileManager.setMaps();
 
         TNTState.setState(TNTState.WAITING);
 
@@ -29,6 +37,8 @@ public class TNTBattle extends JavaPlugin {
         new TNTMOTDListener(this);
         new TNTQuitListener(this);
 
+        mapManager.registerMaps();
+        tntBattleGame.setMap(mapManager.chooseMap());
     }
 
     @Override
@@ -40,7 +50,11 @@ public class TNTBattle extends JavaPlugin {
         return playerManager;
     }
 
-    public GameManager getGameManager(){
-        return gameManager;
+    public TNTBattleGame getGame() {
+        return tntBattleGame;
+    }
+
+    public MapManager getMapManager() {
+        return mapManager;
     }
 }

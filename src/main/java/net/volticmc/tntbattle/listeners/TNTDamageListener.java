@@ -5,6 +5,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 public class TNTDamageListener extends TNTListener{
 
@@ -26,5 +27,10 @@ public class TNTDamageListener extends TNTListener{
         if(event.getCause() == EntityDamageEvent.DamageCause.FALL){
             event.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onLoseHunger(FoodLevelChangeEvent event){
+        event.setCancelled(true);
     }
 }
