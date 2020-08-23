@@ -69,6 +69,10 @@ public enum TNTState {
         TNTState.state = state;
     }
 
+    public static boolean isState(TNTState state){
+        return TNTState.state == state;
+    }
+
     public abstract TNTState nextState();
     public abstract String getMOTDStatus();
 }

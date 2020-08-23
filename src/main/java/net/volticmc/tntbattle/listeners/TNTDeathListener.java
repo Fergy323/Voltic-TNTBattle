@@ -9,6 +9,7 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.Collection;
@@ -38,11 +39,14 @@ public class TNTDeathListener extends TNTListener {
                 killer.playSound(killer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 10);
             }
             Collection<PotionEffect> effects = event.getEntity().getActivePotionEffects();
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getMain(), () -> event.getEntity().spigot().respawn(), 10L);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getMain(), () -> event.getEntity().spigot().respawn(), 5L);
             for(PotionEffect effect : effects){
                 event.getEntity().addPotionEffect(effect);
             }
 
         }
     }
+
+    @EventHandler
+    public void onPlayerSpawn(PlayerRespawnEvent event){}
 }

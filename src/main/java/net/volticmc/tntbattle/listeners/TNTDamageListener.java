@@ -31,6 +31,7 @@ public class TNTDamageListener extends TNTListener{
 
     @EventHandler
     public void onLoseHunger(FoodLevelChangeEvent event){
+        event.setFoodLevel(event.getFoodLevel());
         event.setCancelled(true);
     }
 }

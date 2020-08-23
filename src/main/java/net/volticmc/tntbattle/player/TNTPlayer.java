@@ -1,6 +1,6 @@
 package net.volticmc.tntbattle.player;
 
-import net.volticmc.tntbattle.game.items.GameItem;
+import net.volticmc.tntbattle.items.TNTItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -29,6 +29,7 @@ public class TNTPlayer {
         return uuid;
     }
 
+
     public int getKills() {
         return kills;
     }
@@ -40,6 +41,7 @@ public class TNTPlayer {
     public Player getPlayer(){
         return Bukkit.getServer().getPlayerExact(name);
     }
+
     public void setKills(int kills) {
         this.kills = kills;
     }
@@ -56,8 +58,9 @@ public class TNTPlayer {
         deaths++;
     }
 
-    public void give(GameItem gameItem){
-
+    public void give(TNTItem item){
+        item.addToInventory(getPlayer().getInventory());
     }
+
 
 }

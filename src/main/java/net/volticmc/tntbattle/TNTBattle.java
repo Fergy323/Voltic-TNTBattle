@@ -7,6 +7,7 @@ import net.volticmc.tntbattle.game.map.MapManager;
 import net.volticmc.tntbattle.listeners.*;
 import net.volticmc.tntbattle.player.PlayerManager;
 import net.volticmc.tntbattle.utils.FileManager;
+import net.volticmc.tntbattle.utils.SingletonEventRegister;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TNTBattle extends JavaPlugin {
@@ -15,6 +16,7 @@ public class TNTBattle extends JavaPlugin {
     private TNTBattleGame tntBattleGame;
     private MapManager mapManager;
     private FileManager fileManager;
+    private static SingletonEventRegister eventRegister;
 
     @Override
     public void onEnable() {
@@ -28,6 +30,8 @@ public class TNTBattle extends JavaPlugin {
         TNTState.setState(TNTState.WAITING);
 
         getCommand("forcestart").setExecutor(new ForceStartCommand(this));
+
+        TNTBattle.eventRegister = new SingletonEventRegister(this);
 
         new TNTBlockPlaceListener(this);
         new TNTDamageListener(this);
@@ -56,5 +60,9 @@ public class TNTBattle extends JavaPlugin {
 
     public MapManager getMapManager() {
         return mapManager;
+    }
+
+    public static SingletonEventRegister getEventRegister(){
+        return TNTBattle.eventRegister;
     }
 }

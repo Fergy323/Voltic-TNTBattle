@@ -53,6 +53,10 @@ public class PlayerManager {
         }else{
             Bukkit.broadcastMessage(tntPlayer.getName() + "§a has joined!");
         }
+        player.teleport(main.getGame().getMap().getLobbySpawn());
+        if(players.size() == slots){
+            main.getGame().startCountdown();
+        }
     }
 
     public void removePlayer(Player player){
